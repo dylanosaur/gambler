@@ -1,0 +1,68 @@
+{% block content %}
+<a href="/reset">Reset sim</a>
+<br /><br />
+
+
+<h1>Your credit is {{user['credit']}}</h1>
+<h3>You can buylist {{user['item_count']}} items worth {{user['item_credit_total']}} gems at Purplemana</h3>
+<br /><br />
+{% if pull_enabled %}
+<a href="/pull">{{pull_text}} </a>
+{% endif %}
+{% if not pull_enabled %}
+<span>XXXXXXXXXXXXXX</span><a href="/buy_gems"> {{pull_text}}</a>
+{% endif %}
+<br>
+<h3> These are your items</h3>
+<table id="card" border=1>
+    <thead>
+      <tr>
+        <th>Forsale Price</th>
+        <th>TCGLow</th>
+      	<th>Buylist now</th>
+        <th>Card</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in user['item_list'] %}
+        <tr>
+          <td>{{ item['forsale_price'] }}</td>
+          <td>{{ item['tcglow'] }}</td>
+          <td>{{ item['credit'] }} <a href="/buylist?id={{item['id']}}">Buylist now</a></td>
+          <td>{{ item['item_hash'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <br><br>
+
+
+  <h3>User has spent {{credit_bought}} on mystery boxes</h3>
+
+<br /><br />
+<h2>The pull box has {{item_list['count']}} items for a total TCGlow value of {{item_list['total_tcglow']}}</h2>
+  <table id="card" border=1>
+    <thead>
+      <tr>
+        <th>Forsale Price</th>
+        <th>TCGLow</th>
+      	<th>Buylist now</th>
+        <th>Card</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data %}
+        <tr>
+          <td>{{ item['forsale_price'] }}</td>
+          <td>{{ item['tcglow'] }}</td>
+          <td>{{ item['credit'] }}</td>
+          <td>{{ item['item_hash'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}
